@@ -21,15 +21,24 @@ class Window(QtWidgets.QTreeView):
         QtWidgets.QTreeView.__init__(self, parent)
 
         orchard1 = Orchard("Orchard 1", (49, 30))
-        orchard_item1 = QtGui.QStandardItem(orchard1.name())
-        orchard_item1.setData(orchard1, QtCore.Qt.UserRole)
+        orchardItem1 = QtGui.QStandardItem(orchard1.name())
+        orchardItem1.setData(orchard1, QtCore.Qt.UserRole)
+
+        orchard2 = Orchard("Orchard 2", (15, 70))
+        orchardItem2 = QtGui.QStandardItem(orchard2.name())
+        orchardItem2.setData(orchard2, QtCore.Qt.UserRole)
 
         model = QtGui.QStandardItemModel(self)
-        model.appendColumn([orchard_item1])
+        model.appendColumn([])
+        model.insertRow(0, orchardItem1)
+        model.insertRow(1, orchardItem2)
         self.setModel(model)
 
-        self.setHeaderHidden(True)
+        #self.setHeaderHidden(True)
         self.show()
+
+    def currentChanged(self, current, old):
+        print(current.data(QtCore.Qt.UserRole).position()) 
 
 def main(argv=None):
     if not QtWidgets.QApplication.instance():
